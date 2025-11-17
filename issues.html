@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Issues Archive — The Student Opinion</title>
+    <meta name="description" content="Browse the full archive of The Student Opinion, a student-led academic journal." />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="wrapper">
+        <a class="nav-logo" href="index.html">The Student Opinion</a>
+        <div class="nav-links">
+          <a class="active" href="issues.html">Issues</a>
+          <a href="article.html">Articles</a>
+          <a href="about.html">About</a>
+          <a href="submit.html">Submit</a>
+          <a href="contact.html">Contact</a>
+          <a class="btn btn-primary" href="submit.html">Submit Work</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" style="padding-bottom: 2rem;">
+      <div class="wrapper">
+        <h1>Issues Archive</h1>
+        <p>
+          Every issue of The Student Opinion is curated by student editors, peer-reviewed by faculty mentors, and distributed freely to classrooms.
+          Download spreads, listen to audio editions, or request print bundles.
+        </p>
+        <div class="chip-group" style="margin-top: 1rem;">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="stem">STEM</button>
+          <button class="chip" data-filter="humanities">Humanities</button>
+          <button class="chip" data-filter="policy">Policy</button>
+          <button class="chip" data-filter="arts">Arts</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" style="background: var(--white); padding-top: 0;">
+      <div class="wrapper grid grid-3">
+        <article class="card issue-card" data-tag="policy">
+          <p class="meta">Spring 2025 · Vol. 12</p>
+          <h3>Cities in Transition</h3>
+          <p>Urban design, mutual aid economies, and mobility equity labs led by high school researchers.</p>
+          <ul>
+            <li>Editorial letter on transit justice</li>
+            <li>Peer review notes from 14 cities</li>
+            <li>Downloadable field toolkit</li>
+          </ul>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a class="btn btn-outline" href="#">Download PDF</a>
+            <a class="btn btn-primary" href="article.html">Sample article</a>
+          </div>
+        </article>
+
+        <article class="card issue-card" data-tag="stem">
+          <p class="meta">Winter 2024 · Vol. 11</p>
+          <h3>Learning Futures</h3>
+          <p>AI literacy in classrooms, neurodiverse pedagogy, and community-designed research instrumentation.</p>
+          <ul>
+            <li>Lab notes from 9 student fellows</li>
+            <li>Neurodiversity-first syllabus template</li>
+            <li>Interactive sandbox prompts</li>
+          </ul>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a class="btn btn-outline" href="#">Download PDF</a>
+            <a class="btn btn-outline" href="#">Audio edition</a>
+          </div>
+        </article>
+
+        <article class="card issue-card" data-tag="arts">
+          <p class="meta">Summer 2024 · Vol. 10</p>
+          <h3>Stewardship & Soil</h3>
+          <p>Regenerative agriculture, Indigenous science, and student-led food sovereignty mapping.</p>
+          <ul>
+            <li>Field interviews with 18 youth farmers</li>
+            <li>Storytelling kit for campus gardens</li>
+            <li>Recipe zine companion</li>
+          </ul>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a class="btn btn-outline" href="#">Download PDF</a>
+            <a class="btn btn-outline" href="#">Request classroom pack</a>
+          </div>
+        </article>
+
+        <article class="card issue-card" data-tag="policy">
+          <p class="meta">Spring 2024 · Vol. 9</p>
+          <h3>Borderless Health</h3>
+          <p>Cross-border mutual aid, adolescent public health policy, and telemedicine prototypes.</p>
+          <ul>
+            <li>Research protocol library</li>
+            <li>Peer reviewer reflections</li>
+            <li>Infographic set</li>
+          </ul>
+          <a class="btn btn-outline" href="#">Download PDF</a>
+        </article>
+
+        <article class="card issue-card" data-tag="humanities">
+          <p class="meta">Winter 2023 · Vol. 8</p>
+          <h3>Memory & Migration</h3>
+          <p>Digital humanities exhibits, oral history labs, and language justice frameworks.</p>
+          <ul>
+            <li>Archive digitization starter pack</li>
+            <li>Story circle facilitation guide</li>
+            <li>Spotify playlist companion</li>
+          </ul>
+          <a class="btn btn-outline" href="#">Download PDF</a>
+        </article>
+
+        <article class="card issue-card" data-tag="stem">
+          <p class="meta">Fall 2023 · Vol. 7</p>
+          <h3>Ocean Kinship</h3>
+          <p>Marine biology research residencies, coral restoration, and community scuba fieldwork.</p>
+          <ul>
+            <li>Data viz pack</li>
+            <li>Student-designed sensors</li>
+            <li>Partner expedition map</li>
+          </ul>
+          <a class="btn btn-outline" href="#">Download PDF</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrapper">
+        <div class="section-header">
+          <span>Distribution</span>
+          <h2>Bring the journal to your campus</h2>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          <div class="card">
+            <h3>Print bundles</h3>
+            <p>Order free classroom bundles (20 copies) if you host a student reading circle.</p>
+          </div>
+          <div class="card">
+            <h3>Facilitator kit</h3>
+            <p>Slides, discussion prompts, and peer feedback rubrics for teachers and mentors.</p>
+          </div>
+          <div class="card">
+            <h3>Chapter library</h3>
+            <p>Access our digital shelf with annotated bibliographies and data sets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrapper">
+        <div class="footer-top">
+          <div>
+            <p class="nav-logo" style="color: var(--white);">The Student Opinion</p>
+            <p>Student-led academic journal amplifying next-generation scholarship.</p>
+            <div class="social-links">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href="https://newsletter.com" target="_blank" rel="noreferrer">Newsletter</a>
+            </div>
+          </div>
+          <div class="footer-nav">
+            <div>
+              <strong>Journal</strong>
+              <a href="issues.html">Issues</a>
+              <a href="article.html">Articles</a>
+            </div>
+            <div>
+              <strong>Community</strong>
+              <a href="about.html">Editorial Team</a>
+              <a href="submit.html">Submissions</a>
+            </div>
+            <div>
+              <strong>Connect</strong>
+              <a href="mailto:hello@thestudentopinion.org">Email</a>
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+          <div>
+            <p><strong>Newsletter</strong></p>
+            <p>Monthly dispatch with calls for submissions and research prompts.</p>
+            <div class="newsletter">
+              <input type="email" placeholder="Email address" />
+              <button type="button">Sign up</button>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom" style="margin-top: 2rem;">
+          <span>© <span data-year></span> The Student Opinion Collective</span>
+          <span>Powered by students · Based in classrooms worldwide</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
