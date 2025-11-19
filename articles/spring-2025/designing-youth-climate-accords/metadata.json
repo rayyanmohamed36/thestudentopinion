@@ -1,0 +1,44 @@
+{
+  "title": "Designing Youth Climate Accords",
+  "slug": "designing-youth-climate-accords",
+  "author": {
+    "name": "Amara Bello",
+    "affiliation": "Brookline High School",
+    "role": "Editorial Fellow",
+    "email": "amara.bello@example.edu"
+  },
+  "published_date": "2025-04-15",
+  "issue": {
+    "volume": 12,
+    "season": "Spring",
+    "year": 2025,
+    "theme": "Cities in Transition"
+  },
+  "categories": ["Policy", "Urban Design", "Climate"],
+  "tags": ["climate accords", "youth governance", "participatory policy", "transit justice", "Boston", "Lagos", "São Paulo"],
+  "abstract": "A comparative analysis of student-led municipal climate boards in Boston, Lagos, and São Paulo, mapping what accountability looks like when youth draft policy.",
+  "word_count": 2847,
+  "reading_time_minutes": 11,
+  "peer_reviewed": true,
+  "reviewers": [
+    "Dr. Maria Santos, Urban Planning, MIT",
+    "Prof. Chidi Okonkwo, Public Policy, University of Lagos"
+  ],
+  "keywords": ["youth climate action", "municipal policy", "co-governance", "transit equity", "participatory design"],
+  "doi": "10.12345/tso.2025.spring.climate-accords",
+  "citation": "Bello, A. (2025). Designing Youth Climate Accords. The Student Opinion, 12(Spring), 23-34.",
+  "downloads": {
+    "toolkit": "toolkit.pdf",
+    "data": "data.csv",
+    "facilitation_guide": "facilitation-guide.pdf",
+    "legal_template": "legal-memo-template.docx"
+  },
+  "related_articles": [
+    "/articles/winter-2024/electric-bus-supply-chains",
+    "/articles/spring-2025/community-microgrids",
+    "/articles/winter-2024/policy-debate-civic-research"
+  ],
+  "featured": true,
+  "featured_image": "images/climate-accord-hero.jpg",
+  "social_image": "images/climate-accord-social.jpg"
+}
