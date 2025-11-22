@@ -249,7 +249,7 @@ nav .wrapper {
 }
 
 .article-abstract {
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 1.25rem;
 }
 
@@ -259,6 +259,11 @@ nav .wrapper {
 
 .article-abstract p:last-child {
   margin-bottom: 0;
+}
+
+.article-hero .article-abstract {
+  color: var(--white);
+  opacity: 0.9;
 }
 
 .article-card-actions {
