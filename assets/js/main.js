@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initIssuesArticlesFeed();
+  initArticleDetailPage();
 });
+
+const getApiBase = () => {
+  const attr = document.body?.dataset?.apiBase || '';
+  return attr.replace(/\/?$/, '') || '';
+};
 
 function initIssuesArticlesFeed() {
   const articlesGrid = document.querySelector('[data-issues-articles-grid]');
@@ -24,8 +30,7 @@ function initIssuesArticlesFeed() {
 
   const emptyState = document.querySelector('[data-issues-articles-empty]');
   const banner = document.querySelector('[data-issues-articles-banner]');
-  const apiBaseAttr = document.body?.dataset?.apiBase || '';
-  const apiBase = apiBaseAttr.replace(/\/$/, '');
+  const apiBase = getApiBase();
   const articlesEndpoint = apiBase ? `${apiBase}/articles` : '/articles';
 
   const setBanner = (message = '', isError = false) => {
@@ -64,6 +69,7 @@ function initIssuesArticlesFeed() {
       const titleEl = clone.querySelector('[data-issue-article-title]');
       const abstractEl = clone.querySelector('[data-issue-article-abstract]');
       const pdfEl = clone.querySelector('[data-issue-article-pdf]');
+      const readEl = clone.querySelector('[data-issue-article-read]');
 
       metaEl.textContent = formatMeta(article);
       titleEl.textContent = article.title || 'Untitled article';
@@ -72,12 +78,24 @@ function initIssuesArticlesFeed() {
       const snippet = abstract.length > maxChars ? `${abstract.slice(0, maxChars).trim()}…` : abstract;
       abstractEl.textContent = snippet || 'Abstract coming soon.';
 
-      if (article.pdf_url) {
-        pdfEl.href = article.pdf_url;
-        pdfEl.removeAttribute('aria-disabled');
-      } else {
-        pdfEl.href = '#';
-        pdfEl.setAttribute('aria-disabled', 'true');
+      if (pdfEl) {
+        if (article.pdf_url) {
+          pdfEl.href = article.pdf_url;
+          pdfEl.removeAttribute('aria-disabled');
+        } else {
+          pdfEl.href = '#';
+          pdfEl.setAttribute('aria-disabled', 'true');
+        }
+      }
+
+      if (readEl) {
+        if (article.detail_url) {
+          readEl.href = article.detail_url;
+          readEl.removeAttribute('aria-disabled');
+        } else {
+          readEl.href = '#';
+          readEl.setAttribute('aria-disabled', 'true');
+        }
       }
 
       articlesGrid.appendChild(clone);
@@ -109,4 +127,105 @@ function initIssuesArticlesFeed() {
   };
 
   fetchArticles();
+}
+
+function initArticleDetailPage() {
+  const articlePage = document.querySelector('[data-article-page]');
+  if (!articlePage) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const articleId = params.get('id');
+  const errorEl = document.querySelector('[data-article-error]');
+  const loadingEl = document.querySelector('[data-article-loading]');
+  const heroSection = document.querySelector('[data-article-hero]');
+  const contentSection = document.querySelector('[data-article-content]');
+  const titleEl = document.querySelector('[data-article-title]');
+  const metaEl = document.querySelector('[data-article-meta]');
+  const abstractEl = document.querySelector('[data-article-abstract]');
+  const bodyEl = document.querySelector('[data-article-body]');
+  const pdfLinks = document.querySelectorAll('[data-article-pdf]');
+
+  const showError = (message) => {
+    if (loadingEl) loadingEl.hidden = true;
+    if (heroSection) heroSection.hidden = true;
+    if (contentSection) contentSection.hidden = true;
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    }
+  };
+
+  if (!articleId) {
+    showError('Article not found.');
+    return;
+  }
+
+  const apiBase = getApiBase();
+  const endpoint = apiBase ? `${apiBase}/articles/${articleId}` : `/articles/${articleId}`;
+
+  const renderBody = (bodyText = '') => {
+    if (!bodyEl) return;
+    bodyEl.innerHTML = '';
+    const trimmed = bodyText.trim();
+    if (!trimmed) {
+      const empty = document.createElement('p');
+      empty.textContent = 'Full article text is not available yet.';
+      bodyEl.appendChild(empty);
+      return;
+    }
+
+    trimmed
+      .split(/\n{2,}/)
+      .map((segment) => segment.trim())
+      .filter(Boolean)
+      .forEach((segment) => {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = segment;
+        bodyEl.appendChild(paragraph);
+      });
+  };
+
+  const setPdfLinks = (url) => {
+    pdfLinks.forEach((link) => {
+      if (url) {
+        link.href = url;
+        link.removeAttribute('aria-disabled');
+      } else {
+        link.href = '#';
+        link.setAttribute('aria-disabled', 'true');
+      }
+    });
+  };
+
+  fetch(endpoint, { headers: { Accept: 'application/json' } })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Unable to load article.');
+      }
+      return response.json();
+    })
+    .then((article) => {
+      if (loadingEl) loadingEl.hidden = true;
+      if (heroSection) heroSection.hidden = false;
+      if (contentSection) contentSection.hidden = false;
+      if (errorEl) errorEl.hidden = true;
+
+      if (titleEl) titleEl.textContent = article.title || 'Untitled article';
+      if (metaEl) {
+        const author = article.author || 'Unknown author';
+        const created = article.created_at_display || '';
+        metaEl.textContent = created ? `By ${author} · ${created}` : `By ${author}`;
+      }
+      if (abstractEl) {
+        abstractEl.textContent = article.abstract || 'Abstract coming soon.';
+      }
+      renderBody(article.body || '');
+      setPdfLinks(article.pdf_url);
+    })
+    .catch((error) => {
+      console.error(error);
+      showError('We could not load this article. Please try again later.');
+    });
 }

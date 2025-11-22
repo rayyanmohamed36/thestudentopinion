@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article Template — The Student Opinion</title>
-    <meta name="description" content="Sample article layout for The Student Opinion, a student-led academic journal." />
+    <title>Article — The Student Opinion</title>
+    <meta name="description" content="Read the latest article from The Student Opinion journal." />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script src="assets/js/main.js" defer></script>
   </head>
-  <body>
+  <body data-api-base="/api" data-article-page>
     <nav>
       <div class="wrapper">
         <a class="nav-logo" href="index.html">The Student Opinion</a>
@@ -23,85 +23,43 @@
       </div>
     </nav>
 
-    <section class="article-hero">
+    <section class="hero" style="padding-bottom: 0;" data-article-loading>
       <div class="wrapper">
-        <p style="letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.8rem; opacity: 0.9;">Policy · Urban Design</p>
-        <h1 style="margin: 0; font-size: clamp(2.5rem, 6vw, 3.6rem);">Designing Youth Climate Accords</h1>
-        <p style="max-width: 640px; font-size: 1.1rem;">
-          How coalitions of high school researchers in Boston, Lagos, and São Paulo co-authored local climate policies—and what it teaches us about participatory governance.
-        </p>
-        <div style="margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap;">
-          <div>
-            <strong>By Amara Bello</strong>
-            <p style="margin: 0; opacity: 0.8;">Brookline High School · Editorial Fellow</p>
-          </div>
-          <div>
-            <strong>Published</strong>
-            <p style="margin: 0; opacity: 0.8;">Spring 2025 · Volume 12</p>
-          </div>
+        <div class="card" style="max-width: 720px; margin: 2rem auto; text-align: center;">
+          <p style="margin: 0;">Loading article…</p>
         </div>
       </div>
     </section>
 
-    <section class="article-body wrapper">
-      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-        <p>
-          When Boston’s Youth Action Board proposed a binding climate accord in 2023, city staffers expected symbolic demands. Instead, the board delivered a 46-page policy blueprint grounded in transit data, energy modeling, and testimonies from bus riders. That template has since informed youth-authored accords in Lagos and São Paulo, cities with radically different transit realities but similar commitments to co-governance.
-        </p>
-        <p>
-          This article tracks how students structured their coalitions, negotiated with city agencies, and translated community listening sessions into actionable legislation. It also highlights the moments when adult allies ceded decision-making power and when they didn’t—revealing the limitations of advisory-only approaches.
-        </p>
-        <div class="pull-quote">
-          “Youth climate accords aren’t mock exercises. They are governance labs, and the burden is on cities to treat them as such.”
+    <section class="article-hero" data-article-hero hidden>
+      <div class="wrapper">
+        <p class="meta" data-article-meta></p>
+        <h1 data-article-title></h1>
+        <p class="article-abstract" data-article-abstract></p>
+        <div style="margin-top: 1.25rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a class="btn btn-primary" data-article-pdf target="_blank" rel="noopener">View PDF</a>
         </div>
-        <h2>Field notes from Boston</h2>
-        <p>
-          The Boston team split into data, storytelling, and policy pods. The data pod created heat-maps of bus reliability; storytelling pods produced commuter diaries; policy pods drafted ordinance language. Their breakthrough came when they paired the diaries with heat-maps, illustrating how delays disproportionately affected Black students in Dorchester.
-        </p>
-        <h2>Lessons from Lagos</h2>
-        <p>
-          In Lagos, students navigated limited public data by running community air-monitoring clinics. They leaned on university mentors for calibration while insisting that youth researchers lead the outreach. The resulting accord included a youth-managed climate resilience fund funded by congestion pricing.
-        </p>
-        <h2>São Paulo’s coalition</h2>
-        <p>
-          São Paulo’s student coalition wove in Indigenous land stewards, positioning climate action as land rematriation. They staged design studios in metro stations, inviting commuters to annotate printouts of bus routes with lived experience. The final accord recommended rerouting two rapid bus corridors and embedding land acknowledgment signage at major transit hubs.
-        </p>
-        <div class="callout">
-          <p><strong>Download the research kit</strong></p>
-          <p>Use our open-source toolkit to run your own youth climate accord sprint in six weeks.</p>
-        </div>
-        <h2>What’s next</h2>
-        <p>
-          Youth coalitions are now federating across continents, sharing legal templates and data infrastructure. The Student Opinion is helping convene quarterly retrospectives so that students can analyze victories and setbacks together.
-        </p>
       </div>
+    </section>
 
-      <aside style="margin-top: 3rem;">
-        <h3>Research materials</h3>
-        <ul>
-          <li>Transit justice data set (CSV)</li>
-          <li>Facilitation guide for community listening sessions</li>
-          <li>Legal memo template</li>
-        </ul>
+    <div class="wrapper">
+      <div class="status-banner error" data-article-error hidden></div>
+    </div>
+
+    <section class="article-body wrapper" data-article-content hidden style="gap: 2rem;">
+      <div style="flex: 2; display: flex; flex-direction: column; gap: 1rem;" data-article-body></div>
+      <aside style="flex: 1; margin-top: 2rem;">
+        <div class="card">
+          <h3>Download the PDF</h3>
+          <p>Prefer the designed spreads? Use the button below.</p>
+          <a class="btn btn-outline" data-article-pdf target="_blank" rel="noopener">Open PDF</a>
+        </div>
+        <div class="card" style="margin-top: 1rem;">
+          <h3>Need classroom copies?</h3>
+          <p>Use the contact form to request print bundles for your school.</p>
+          <a class="btn btn-primary" href="contact.html">Contact us</a>
+        </div>
       </aside>
-
-      <div style="margin-top: 3rem;">
-        <h3>Related articles</h3>
-        <div class="grid grid-3">
-          <a class="card" href="#">
-            <h4>Repairing school bus supply chains</h4>
-            <p>Tracking how students lobbied for electric buses in the rural Midwest.</p>
-          </a>
-          <a class="card" href="#">
-            <h4>Community-owned microgrids</h4>
-            <p>Engineering students model resilience hubs in Manila.</p>
-          </a>
-          <a class="card" href="#">
-            <h4>Policy debate as civic research</h4>
-            <p>Converting debate cases into legislative briefings that city councils actually use.</p>
-          </a>
-        </div>
-      </div>
     </section>
 
     <footer class="footer">

@@ -65,7 +65,7 @@ def parse_object_id(identifier: str) -> ObjectId:
     try:
         return ObjectId(identifier)
     except (InvalidId, TypeError):
-        raise HTTPException(status_code=404, detail="Invalid PDF identifier.")
+        raise HTTPException(status_code=404, detail="Invalid identifier.")
 
 
 def format_article(article):
@@ -78,17 +78,20 @@ def format_article(article):
     
     pdf_file_id = article.get("pdf_file_id")
     pdf_url = f"/api/pdf/{pdf_file_id}" if pdf_file_id else None
+    article_id = str(article.get("_id", ""))
     
     return {
-        "id": str(article.get("_id", "")),
+        "id": article_id,
         "title": article.get("title", ""),
         "author": article.get("author", ""),
         "abstract": article.get("abstract", ""),
+        "body": article.get("body", ""),
         "approved": article.get("approved", False),
         "created_at": created_at.isoformat() if isinstance(created_at, datetime) else str(created_at),
         "created_at_display": created_at_display,
         "pdf_file_id": str(pdf_file_id) if pdf_file_id else None,
-        "pdf_url": pdf_url
+        "pdf_url": pdf_url,
+        "detail_url": f"/article.html?id={article_id}" if article_id else None,
     }
 
 
@@ -113,6 +116,24 @@ def get_articles():
     except Exception as e:
         logger.error(f"Database error in get_articles: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/articles/{article_id}")
+@app.get("/articles/{article_id}")
+def get_article(article_id: str):
+    """Return a single approved article."""
+    logger.info("Fetching article %s", article_id)
+    object_id = parse_object_id(article_id)
+    try:
+        article = articles_collection.find_one({"_id": object_id, "approved": True})
+    except Exception as exc:
+        logger.error("Database error fetching article %s: %s", article_id, exc)
+        raise HTTPException(status_code=500, detail="Database error")
+
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+
+    return format_article(article)
 
 
 @app.get("/api/pdf/{file_id}")
