@@ -1,4 +1,5 @@
-const paragraphSeparator = /(?:\n{2,}| {2,})/;
+const normalizeLineEndings = (text = '') => text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+const paragraphSeparator = /\n\s*\n/;
 
 const escapeHtml = (str = '') =>
   str
@@ -9,7 +10,7 @@ const escapeHtml = (str = '') =>
     .replace(/'/g, '&#39;');
 
 const splitIntoParagraphs = (text = '') => {
-  const trimmed = text.trim();
+  const trimmed = normalizeLineEndings(text).trim();
   if (!trimmed) return [];
   return trimmed
     .split(paragraphSeparator)
