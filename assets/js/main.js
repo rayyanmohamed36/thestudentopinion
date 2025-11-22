@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initIssuesArticlesFeed();
+  initArticlesIndexPage();
   initArticleDetailPage();
 });
 
@@ -47,15 +48,20 @@ const getApiBase = () => {
   return attr.replace(/\/?$/, '') || '';
 };
 
-function initIssuesArticlesFeed() {
-  const articlesGrid = document.querySelector('[data-issues-articles-grid]');
-  const template = document.querySelector('#issue-article-card-template');
+function initArticlesFeed({
+  gridSelector,
+  templateSelector,
+  emptySelector,
+  bannerSelector,
+}) {
+  const articlesGrid = document.querySelector(gridSelector);
+  const template = document.querySelector(templateSelector);
   if (!articlesGrid || !template) {
     return;
   }
 
-  const emptyState = document.querySelector('[data-issues-articles-empty]');
-  const banner = document.querySelector('[data-issues-articles-banner]');
+  const emptyState = emptySelector ? document.querySelector(emptySelector) : null;
+  const banner = bannerSelector ? document.querySelector(bannerSelector) : null;
   const apiBase = getApiBase();
   const articlesEndpoint = apiBase ? `${apiBase}/articles` : '/articles';
 
@@ -116,8 +122,9 @@ function initIssuesArticlesFeed() {
       }
 
       if (readEl) {
-        if (article.detail_url) {
-          readEl.href = article.detail_url;
+        const detailUrl = article.id ? `article.html?id=${article.id}` : null;
+        if (detailUrl) {
+          readEl.href = detailUrl;
           readEl.removeAttribute('aria-disabled');
         } else {
           readEl.href = '#';
@@ -154,6 +161,24 @@ function initIssuesArticlesFeed() {
   };
 
   fetchArticles();
+}
+
+function initIssuesArticlesFeed() {
+  initArticlesFeed({
+    gridSelector: '[data-issues-articles-grid]',
+    templateSelector: '#issue-article-card-template',
+    emptySelector: '[data-issues-articles-empty]',
+    bannerSelector: '[data-issues-articles-banner]',
+  });
+}
+
+function initArticlesIndexPage() {
+  initArticlesFeed({
+    gridSelector: '[data-articles-list-grid]',
+    templateSelector: '#articles-list-card-template',
+    emptySelector: '[data-articles-list-empty]',
+    bannerSelector: '[data-articles-list-banner]',
+  });
 }
 
 function initArticleDetailPage() {
