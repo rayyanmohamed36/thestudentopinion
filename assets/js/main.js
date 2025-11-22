@@ -94,6 +94,8 @@ function initIssuesArticlesFeed() {
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API Error Details:', errorText);
         throw new Error(`Unable to fetch articles (status ${response.status}).`);
       }
 
