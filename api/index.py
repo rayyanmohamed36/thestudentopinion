@@ -24,7 +24,7 @@ if not MONGODB_URI:
     raise ValueError("MONGODB_URI environment variable is not set")
 
 client = MongoClient(MONGODB_URI)
-db = client.get_database()
+db = client["thestudentopinion"]
 articles_collection = db["articles"]
 fs = gridfs.GridFS(db)
 
