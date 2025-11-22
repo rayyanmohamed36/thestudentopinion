@@ -1,12 +1,15 @@
 import os
 import logging
+from datetime import datetime
+
+import gridfs
+from bson import ObjectId
+from bson.errors import InvalidId
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from gridfs.errors import NoFile
 from pymongo import MongoClient
-from bson import ObjectId
-from datetime import datetime
-import gridfs
 
 # Configure logging
 logging.basicConfig(
@@ -45,6 +48,7 @@ if not MONGODB_URI:
 
 MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "journal")
 MONGODB_COLLECTION_NAME = os.getenv("MONGODB_COLLECTION_NAME", "articles")
+GRIDFS_BUCKET_NAME = os.getenv("GRIDFS_BUCKET_NAME", "article_pdfs")
 logger.info(
     "Connecting to MongoDB database '%s' collection '%s'",
     MONGODB_DB_NAME,
@@ -54,7 +58,14 @@ logger.info(
 client = MongoClient(MONGODB_URI)
 db = client[MONGODB_DB_NAME]
 articles_collection = db[MONGODB_COLLECTION_NAME]
-fs = gridfs.GridFS(db)
+gridfs_bucket = gridfs.GridFSBucket(db, bucket_name=GRIDFS_BUCKET_NAME)
+
+
+def parse_object_id(identifier: str) -> ObjectId:
+    try:
+        return ObjectId(identifier)
+    except (InvalidId, TypeError):
+        raise HTTPException(status_code=404, detail="Invalid PDF identifier.")
 
 
 def format_article(article):
@@ -109,29 +120,17 @@ def get_articles():
 def get_pdf(file_id: str):
     """Stream PDF file from GridFS"""
     logger.info(f"Fetching PDF with ID: {file_id}")
+    object_id = parse_object_id(file_id)
+
     try:
-        # Convert string to ObjectId
-        object_id = ObjectId(file_id)
-        
-        # Check if file exists
-        if not fs.exists(object_id):
-            logger.warning(f"PDF not found: {file_id}")
-            raise HTTPException(status_code=404, detail="PDF not found")
-        
-        # Get the file from GridFS
-        grid_out = fs.get(object_id)
-        logger.info(f"Streaming PDF: {grid_out.filename}")
-        
-        # Stream the file
-        return StreamingResponse(
-            grid_out,
-            media_type="application/pdf",
-            headers={
-                "Content-Disposition": f'inline; filename="{grid_out.filename or "article.pdf"}"'
-            }
-        )
-    except Exception as e:
-        if isinstance(e, HTTPException):
-            raise e
-        logger.error(f"Error retrieving PDF {file_id}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error retrieving PDF: {str(e)}")
+        grid_out = gridfs_bucket.open_download_stream(object_id)
+    except NoFile:
+        logger.warning(f"PDF not found: {file_id}")
+        raise HTTPException(status_code=404, detail="PDF not found")
+    except Exception as exc:
+        logger.error(f"Unexpected GridFS error for {file_id}: {exc}")
+        raise HTTPException(status_code=500, detail="Error retrieving PDF.")
+
+    logger.info(f"Streaming PDF: {grid_out.filename}")
+    headers = {"Content-Disposition": f'inline; filename="{grid_out.filename or "article.pdf"}"'}
+    return StreamingResponse(grid_out, media_type="application/pdf", headers=headers)
