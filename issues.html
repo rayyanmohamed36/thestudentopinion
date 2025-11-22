@@ -40,6 +40,55 @@
       </div>
     </header>
 
+    <section class="section" style="background: var(--white); padding-top: 0;" data-issues-articles-section>
+      <div class="wrapper">
+        <div class="section-header">
+          <span>Articles</span>
+          <h2>Latest pieces from MongoDB</h2>
+          <p style="margin: 0; color: #475569;">This list pulls directly from our FastAPI backend, which reads approved article metadata + PDFs from MongoDB Atlas.</p>
+        </div>
+
+        <div class="status-banner" data-issues-articles-banner hidden></div>
+
+        <div class="card articles-empty" data-issues-articles-empty hidden>
+          <h3 style="margin-top: 0;">No approved articles yet</h3>
+          <p>Once editors mark submissions as approved in MongoDB, they will surface here automatically.</p>
+        </div>
+
+        <div class="grid grid-3" data-issues-articles-grid>
+          <article class="card article-feed-card skeleton-card" aria-hidden="true" data-skeleton>
+            <div class="skeleton-bar" style="width: 35%;"></div>
+            <div class="skeleton-bar" style="width: 70%; height: 1.8rem;"></div>
+            <div class="skeleton-bar" style="width: 90%;"></div>
+            <div class="skeleton-bar" style="width: 60%;"></div>
+          </article>
+          <article class="card article-feed-card skeleton-card" aria-hidden="true" data-skeleton>
+            <div class="skeleton-bar" style="width: 45%;"></div>
+            <div class="skeleton-bar" style="width: 80%; height: 1.8rem;"></div>
+            <div class="skeleton-bar" style="width: 95%;"></div>
+            <div class="skeleton-bar" style="width: 65%;"></div>
+          </article>
+          <article class="card article-feed-card skeleton-card" aria-hidden="true" data-skeleton>
+            <div class="skeleton-bar" style="width: 50%;"></div>
+            <div class="skeleton-bar" style="width: 75%; height: 1.8rem;"></div>
+            <div class="skeleton-bar" style="width: 85%;"></div>
+            <div class="skeleton-bar" style="width: 55%;"></div>
+          </article>
+        </div>
+
+        <template id="issue-article-card-template">
+          <article class="card article-feed-card">
+            <p class="meta" data-issue-article-meta></p>
+            <h3 data-issue-article-title></h3>
+            <p class="article-abstract" data-issue-article-abstract></p>
+            <div class="article-card-actions">
+              <a class="btn btn-outline" data-issue-article-pdf target="_blank" rel="noopener">View PDF</a>
+            </div>
+          </article>
+        </template>
+      </div>
+    </section>
+
     <section class="section" style="background: var(--white); padding-top: 0;">
       <div class="wrapper grid grid-3">
         <article class="card issue-card" data-tag="policy">

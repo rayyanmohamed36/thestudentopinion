@@ -237,6 +237,78 @@ nav .wrapper {
   border-color: rgba(13, 148, 136, 0.15);
 }
 
+.article-feed-card .meta {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.4rem;
+}
+
+.article-feed-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.article-abstract {
+  color: #1f2937;
+  margin-bottom: 1.25rem;
+}
+
+.article-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.articles-empty {
+  border-style: dashed;
+  background: rgba(15, 23, 42, 0.02);
+  margin-bottom: 1.5rem;
+}
+
+.status-banner {
+  border-left: 4px solid var(--deep-teal);
+  background: rgba(13, 148, 136, 0.1);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.status-banner.error {
+  border-color: var(--coral);
+  background: rgba(251, 113, 133, 0.12);
+  color: #881337;
+}
+
+.skeleton-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: shimmer 1.6s infinite;
+}
+
+.skeleton-bar {
+  height: 1rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  margin-bottom: 0.75rem;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .issue-card {
   border-top: 4px solid var(--deep-teal);
 }
