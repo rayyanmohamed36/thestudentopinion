@@ -33,6 +33,25 @@ function initIssuesArticlesFeed() {
   const apiBase = getApiBase();
   const articlesEndpoint = apiBase ? `${apiBase}/articles` : '/articles';
 
+  const escapeHtml = (str = '') =>
+    str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+  const formatParagraphs = (text = '') => {
+    const trimmed = text.trim();
+    if (!trimmed) return '';
+    const paragraphs = trimmed
+      .split(/\n{2,}/)
+      .map((segment) => segment.trim())
+      .filter(Boolean);
+    if (!paragraphs.length) return '';
+    return paragraphs.map((segment) => `<p>${escapeHtml(segment)}</p>`).join('');
+  };
+
   const setBanner = (message = '', isError = false) => {
     if (!banner) return;
     if (!message) {
@@ -61,8 +80,6 @@ function initIssuesArticlesFeed() {
 
     if (emptyState) emptyState.hidden = true;
 
-    const maxChars = 240;
-
     articles.forEach((article) => {
       const clone = document.importNode(template.content, true);
       const metaEl = clone.querySelector('[data-issue-article-meta]');
@@ -74,9 +91,12 @@ function initIssuesArticlesFeed() {
       metaEl.textContent = formatMeta(article);
       titleEl.textContent = article.title || 'Untitled article';
 
-      const abstract = (article.abstract || '').trim();
-      const snippet = abstract.length > maxChars ? `${abstract.slice(0, maxChars).trim()}…` : abstract;
-      abstractEl.textContent = snippet || 'Abstract coming soon.';
+      const abstractHtml = formatParagraphs(article.abstract || '');
+      if (abstractHtml) {
+        abstractEl.innerHTML = abstractHtml;
+      } else {
+        abstractEl.textContent = 'Abstract coming soon.';
+      }
 
       if (pdfEl) {
         if (article.pdf_url) {
