@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pymongo import MongoClient
 from bson import ObjectId
 from datetime import datetime
@@ -98,6 +99,11 @@ def get_pdf(file_id: str):
         if isinstance(e, HTTPException):
             raise e
         raise HTTPException(status_code=500, detail=f"Error retrieving PDF: {str(e)}")
+
+
+# Mount static files (HTML, CSS, JS) - must be last
+static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)))
+app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 
 # Vercel serverless function handler
