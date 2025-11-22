@@ -253,6 +253,14 @@ nav .wrapper {
   margin-bottom: 1.25rem;
 }
 
+.article-abstract p {
+  margin: 0 0 0.9rem;
+}
+
+.article-abstract p:last-child {
+  margin-bottom: 0;
+}
+
 .article-card-actions {
   display: flex;
   flex-wrap: wrap;
