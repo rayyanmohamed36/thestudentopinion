@@ -43,9 +43,17 @@ MONGODB_URI = os.getenv("MONGODB_URI")
 if not MONGODB_URI:
     raise ValueError("MONGODB_URI environment variable is not set")
 
+MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "journal")
+MONGODB_COLLECTION_NAME = os.getenv("MONGODB_COLLECTION_NAME", "articles")
+logger.info(
+    "Connecting to MongoDB database '%s' collection '%s'",
+    MONGODB_DB_NAME,
+    MONGODB_COLLECTION_NAME,
+)
+
 client = MongoClient(MONGODB_URI)
-db = client["thestudentopinion"]
-articles_collection = db["articles"]
+db = client[MONGODB_DB_NAME]
+articles_collection = db[MONGODB_COLLECTION_NAME]
 fs = gridfs.GridFS(db)
 
 
