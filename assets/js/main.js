@@ -45,7 +45,7 @@ function initIssuesArticlesFeed() {
     const trimmed = text.trim();
     if (!trimmed) return '';
     const paragraphs = trimmed
-      .split(/\n{2,}/)
+      .split(/(?:\n{2,}| {2,})/)
       .map((segment) => segment.trim())
       .filter(Boolean);
     if (!paragraphs.length) return '';
