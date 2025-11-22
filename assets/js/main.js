@@ -1,3 +1,28 @@
+const paragraphSeparator = /(?:\n{2,}| {2,})/;
+
+const escapeHtml = (str = '') =>
+  str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+const splitIntoParagraphs = (text = '') => {
+  const trimmed = text.trim();
+  if (!trimmed) return [];
+  return trimmed
+    .split(paragraphSeparator)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+};
+
+const paragraphsToHtml = (text = '') => {
+  const paragraphs = splitIntoParagraphs(text);
+  if (!paragraphs.length) return '';
+  return paragraphs.map((segment) => `<p>${escapeHtml(segment)}</p>`).join('');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) {
@@ -32,25 +57,6 @@ function initIssuesArticlesFeed() {
   const banner = document.querySelector('[data-issues-articles-banner]');
   const apiBase = getApiBase();
   const articlesEndpoint = apiBase ? `${apiBase}/articles` : '/articles';
-
-  const escapeHtml = (str = '') =>
-    str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-
-  const formatParagraphs = (text = '') => {
-    const trimmed = text.trim();
-    if (!trimmed) return '';
-    const paragraphs = trimmed
-      .split(/(?:\n{2,}| {2,})/)
-      .map((segment) => segment.trim())
-      .filter(Boolean);
-    if (!paragraphs.length) return '';
-    return paragraphs.map((segment) => `<p>${escapeHtml(segment)}</p>`).join('');
-  };
 
   const setBanner = (message = '', isError = false) => {
     if (!banner) return;
@@ -91,7 +97,7 @@ function initIssuesArticlesFeed() {
       metaEl.textContent = formatMeta(article);
       titleEl.textContent = article.title || 'Untitled article';
 
-      const abstractHtml = formatParagraphs(article.abstract || '');
+      const abstractHtml = paragraphsToHtml(article.abstract || '');
       if (abstractHtml) {
         abstractEl.innerHTML = abstractHtml;
       } else {
@@ -188,23 +194,19 @@ function initArticleDetailPage() {
   const renderBody = (bodyText = '') => {
     if (!bodyEl) return;
     bodyEl.innerHTML = '';
-    const trimmed = bodyText.trim();
-    if (!trimmed) {
+    const paragraphs = splitIntoParagraphs(bodyText);
+    if (!paragraphs.length) {
       const empty = document.createElement('p');
       empty.textContent = 'Full article text is not available yet.';
       bodyEl.appendChild(empty);
       return;
     }
 
-    trimmed
-      .split(/\n{2,}/)
-      .map((segment) => segment.trim())
-      .filter(Boolean)
-      .forEach((segment) => {
-        const paragraph = document.createElement('p');
-        paragraph.textContent = segment;
-        bodyEl.appendChild(paragraph);
-      });
+    paragraphs.forEach((segment) => {
+      const paragraph = document.createElement('p');
+      paragraph.textContent = segment;
+      bodyEl.appendChild(paragraph);
+    });
   };
 
   const setPdfLinks = (url) => {
