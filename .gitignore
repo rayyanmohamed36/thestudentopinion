@@ -1,2 +1,16 @@
 # Environment secrets
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Vercel
+.vercel
