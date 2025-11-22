@@ -24,6 +24,9 @@ function initIssuesArticlesFeed() {
 
   const emptyState = document.querySelector('[data-issues-articles-empty]');
   const banner = document.querySelector('[data-issues-articles-banner]');
+  const apiBaseAttr = document.body?.dataset?.apiBase || '';
+  const apiBase = apiBaseAttr.replace(/\/$/, '');
+  const articlesEndpoint = apiBase ? `${apiBase}/articles` : '/articles';
 
   const setBanner = (message = '', isError = false) => {
     if (!banner) return;
@@ -86,12 +89,12 @@ function initIssuesArticlesFeed() {
     if (emptyState) emptyState.hidden = true;
 
     try {
-      const response = await fetch('/articles', {
+      const response = await fetch(articlesEndpoint, {
         headers: { Accept: 'application/json' },
       });
 
       if (!response.ok) {
-        throw new Error('Unable to fetch articles.');
+        throw new Error(`Unable to fetch articles (status ${response.status}).`);
       }
 
       const data = await response.json();
