@@ -127,9 +127,3 @@ def get_pdf(file_id: str):
             raise e
         logger.error(f"Error retrieving PDF {file_id}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error retrieving PDF: {str(e)}")
-
-
-# Vercel serverless function handler
-def handler(request):
-    """Entry point for Vercel serverless functions"""
-    return app(request)
