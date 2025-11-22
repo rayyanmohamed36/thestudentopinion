@@ -59,6 +59,7 @@ def read_root():
 
 
 @app.get("/api/articles")
+@app.get("/articles")
 def get_articles():
     """Get all approved articles"""
     try:
@@ -73,6 +74,7 @@ def get_articles():
 
 
 @app.get("/api/pdf/{file_id}")
+@app.get("/pdf/{file_id}")
 def get_pdf(file_id: str):
     """Stream PDF file from GridFS"""
     try:
