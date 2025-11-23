@@ -29,41 +29,57 @@
     <header class="hero">
       <div class="wrapper hero-grid">
         <div>
-          <p class="badge" style="background: rgba(13, 148, 136, 0.15); color: var(--deep-teal); border: 1px solid rgba(13, 148, 136, 0.2); width: fit-content;">
-            Spring 2025 Issue live now
+          <p class="badge" style="background: rgba(15, 23, 42, 0.08); color: var(--ink); border: 1px solid rgba(15, 23, 42, 0.15); width: fit-content;">
+            Articles Live Now
           </p>
           <h1>Peer-reviewed scholarship powered by student voices.</h1>
           <p>
             The Student Opinion curates research, essays, and creative inquiry from high school and undergraduate scholars around the world.
             Each issue is edited, reviewed, and published by a student-led collective dedicated to rigorous, accessible academic storytelling.
           </p>
-          <div class="badges">
-            <span class="badge">STEM</span>
-            <span class="badge">Humanities</span>
-            <span class="badge">Policy</span>
-            <span class="badge">Arts</span>
-          </div>
+          <p>
+            If you want to follow along—or send us the next piece—join the list below or email the editors. Every new article teaches us what to build next.
+          </p>
           <div style="margin-top: 1.75rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a class="btn btn-primary" href="issues.html">Read the Current Issue</a>
-            <a class="btn btn-outline" href="submit.html">Pitch an Article</a>
+            <a class="btn btn-primary" href="articles.html">Read the latest article</a>
+            <a class="btn btn-outline" href="submit.html">Submit your work</a>
           </div>
         </div>
         <div class="hero-card">
-          <h3>Spring 2025 · Volume 12</h3>
-          <p style="color: var(--white);">
-            Featuring climate policy models, AI ethics in classrooms, and oral histories from first-generation college pioneers.
+          <h3 style="margin-top: 0;">Latest submissions</h3>
+          <p style="color: var(--white); opacity: 0.9;">
+            Feed of our latest articles written by our students.
           </p>
-          <ul style="list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1rem;">
-            <li>
-              <strong>Editorial Letter</strong><br />Navigating research equity in 2025 classrooms.
-            </li>
-            <li>
-              <strong>Featured Series</strong><br />"Cities in Transition" — urban design, housing justice, and student-led planning labs.
-            </li>
-            <li>
-              <strong>Lab Notes</strong><br />Micro-grants powering 34 independent student projects.
-            </li>
-          </ul>
+          <div class="status-banner" data-home-articles-banner hidden></div>
+          <p class="home-articles-empty" data-home-articles-empty hidden>Waiting for approved articles…</p>
+          <div class="home-articles-list" data-home-articles-grid>
+            <article class="home-article skeleton-card" aria-hidden="true">
+              <div class="skeleton-bar" style="width: 40%;"></div>
+              <div class="skeleton-bar" style="width: 80%; height: 1.6rem;"></div>
+              <div class="skeleton-bar" style="width: 60%;"></div>
+            </article>
+            <article class="home-article skeleton-card" aria-hidden="true">
+              <div class="skeleton-bar" style="width: 35%;"></div>
+              <div class="skeleton-bar" style="width: 70%; height: 1.6rem;"></div>
+              <div class="skeleton-bar" style="width: 55%;"></div>
+            </article>
+            <article class="home-article skeleton-card" aria-hidden="true">
+              <div class="skeleton-bar" style="width: 30%;"></div>
+              <div class="skeleton-bar" style="width: 65%; height: 1.6rem;"></div>
+              <div class="skeleton-bar" style="width: 50%;"></div>
+            </article>
+          </div>
+          <template id="home-article-card-template">
+            <article class="home-article">
+              <p class="meta" data-issue-article-meta></p>
+              <h4 data-issue-article-title></h4>
+              <div class="article-abstract" data-issue-article-abstract></div>
+              <div class="article-card-actions">
+                <a class="btn btn-primary" data-issue-article-read>Read</a>
+                <a class="btn btn-outline" data-issue-article-pdf target="_blank" rel="noopener">PDF</a>
+              </div>
+            </article>
+          </template>
         </div>
       </div>
     </header>
@@ -71,111 +87,41 @@
     <section class="section" style="background: var(--white);">
       <div class="wrapper">
         <div class="section-header">
-          <span>Featured Work</span>
-          <h2>Stories shaping campus conversations</h2>
+          <span>Roadmap</span>
+          <h2>Where the journal is right now</h2>
+          <p style="margin: 0; color: #475569;">We’re keeping the homepage honest so contributors know exactly what exists today.</p>
         </div>
-        <div class="grid grid-3">
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
           <article class="card">
-            <p class="meta">Policy · April 2025</p>
-            <h3>Designing Youth Climate Accords</h3>
-            <p>
-              A comparative analysis of student-led municipal climate boards in Boston, Lagos, and São Paulo, mapping what accountability looks like when youth draft policy.
-            </p>
-            <a class="btn btn-outline" href="articles/spring-2025/designing-youth-climate-accords/designing-youth-climate-accords.html">Read Article</a>
+            <h3>3 articles published</h3>
+            <p>Approved submissions are proofread and cross-referenced to make sure each article is accurate and well-supported.</p>
           </article>
           <article class="card">
-            <p class="meta">Humanities · March 2025</p>
-            <h3>Archives of First-generation Futures</h3>
-            <p>
-              Oral histories from college bridge programs that redefine how we document belonging, featuring student-curated digital exhibits.
-            </p>
-            <a class="btn btn-outline" href="articles.html">Read Article</a>
+            <h3>Manual peer review</h3>
+            <p>The editors listed on the About page read each piece directly using our article manager and coordinate feedback over email.</p>
           </article>
           <article class="card">
-            <p class="meta">STEM · March 2025</p>
-            <h3>BioFab Studios in High School Labs</h3>
-            <p>
-              Tracking community biotech labs bringing CRISPR literacy to teens and what ethical guardrails students propose.
-            </p>
-            <a class="btn btn-outline" href="articles.html">Read Article</a>
+            <h3>Next up: expanding our reviewer pool.</h3>
+            <p>We’re building tools to streamline reviews and generate instant PDF previews for submissions.</p>
+          </article>
+          <article class="card">
+            <h3>How to help</h3>
+            <p>Send us your draft, and our editors will review it for feedback and potential publication.</p>
           </article>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="wrapper">
-        <div class="section-header">
-          <span>By the numbers</span>
-          <h2>Journal impact snapshot</h2>
+      <div class="wrapper" style="text-align: center; max-width: 720px;">
+        <div class="section-header" style="align-items: center;">
+          <span>Stay in the loop</span>
+          <h2>Get updates when we publish</h2>
         </div>
-        <div class="metric-cards">
-          <div class="metric-card">
-            <h3>120+</h3>
-            <p>Student contributors across 18 countries</p>
-          </div>
-          <div class="metric-card">
-            <h3>34</h3>
-            <p>Research mentors on advisory board</p>
-          </div>
-          <div class="metric-card">
-            <h3>11</h3>
-            <p>Print and digital issues released</p>
-          </div>
-          <div class="metric-card">
-            <h3>4.9/5</h3>
-            <p>Average peer review satisfaction</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="background: var(--white);">
-      <div class="wrapper">
-        <div class="section-header">
-          <span>Issues</span>
-          <h2>Browse the archive</h2>
-        </div>
-        <div class="grid grid-3">
-          <article class="card issue-card">
-            <p class="meta">Spring 2025 · Vol. 12</p>
-            <h3>Cities in Transition</h3>
-            <p>Urban design, mutual aid, and student-led planning labs reimagining resilient infrastructure.</p>
-            <a class="btn btn-outline" href="issues.html">Issue overview</a>
-          </article>
-          <article class="card issue-card">
-            <p class="meta">Winter 2024 · Vol. 11</p>
-            <h3>Learning Futures</h3>
-            <p>AI literacy, culturally sustaining pedagogy, and neurodiverse classrooms.</p>
-            <a class="btn btn-outline" href="issues.html">Issue overview</a>
-          </article>
-          <article class="card issue-card">
-            <p class="meta">Summer 2024 · Vol. 10</p>
-            <h3>Stewardship & Soil</h3>
-            <p>Regenerative agriculture, Indigenous science, and food sovereignty research collaboratives.</p>
-            <a class="btn btn-outline" href="issues.html">Issue overview</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrapper">
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
-          <div class="card testimonial">
-            “Submitting to The Student Opinion gave me mentors and rigor I didn’t think existed outside college journals.”
-            <p style="margin-top: 1rem; font-weight: 600;">— Mina L., Physics contributor</p>
-          </div>
-          <div class="card">
-            <h3>Get involved</h3>
-            <p>Join editorial pods, peer review cohorts, or research sprint residencies.</p>
-            <ul>
-              <li>Applications open every semester</li>
-              <li>Micro-grants for independent research</li>
-              <li>Virtual and in-person editorial labs</li>
-            </ul>
-            <a class="btn btn-primary" href="submit.html">View opportunities</a>
-          </div>
+        <p>We share tiny changelog emails whenever a new article is approved or we tweak the tech stack. Drop your email to follow along.</p>
+        <div class="newsletter" style="max-width: 480px; margin: 1.5rem auto 0;">
+          <input type="email" placeholder="Email address" />
+          <button type="button">Notify me</button>
         </div>
       </div>
     </section>
@@ -220,7 +166,7 @@
         </div>
         <div class="footer-bottom" style="margin-top: 2rem;">
           <span>© <span data-year></span> The Student Opinion Collective</span>
-          <span>Powered by students · Based in classrooms worldwide</span>
+          <span>Powered by students · Based in classrooms</span>
         </div>
       </div>
     </footer>

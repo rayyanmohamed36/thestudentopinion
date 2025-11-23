@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initIssuesArticlesFeed();
+  initHomeArticlesFeed();
   initArticlesIndexPage();
   initArticleDetailPage();
 });
@@ -53,6 +54,7 @@ function initArticlesFeed({
   templateSelector,
   emptySelector,
   bannerSelector,
+  limit,
 }) {
   const articlesGrid = document.querySelector(gridSelector);
   const template = document.querySelector(templateSelector);
@@ -86,14 +88,18 @@ function initArticlesFeed({
 
   const renderArticles = (articles) => {
     articlesGrid.innerHTML = '';
-    if (!Array.isArray(articles) || !articles.length) {
+    let list = Array.isArray(articles) ? articles : [];
+    if (limit && list.length) {
+      list = list.slice(0, limit);
+    }
+    if (!list.length) {
       if (emptyState) emptyState.hidden = false;
       return;
     }
 
     if (emptyState) emptyState.hidden = true;
 
-    articles.forEach((article) => {
+    list.forEach((article) => {
       const clone = document.importNode(template.content, true);
       const metaEl = clone.querySelector('[data-issue-article-meta]');
       const titleEl = clone.querySelector('[data-issue-article-title]');
@@ -178,6 +184,16 @@ function initArticlesIndexPage() {
     templateSelector: '#articles-list-card-template',
     emptySelector: '[data-articles-list-empty]',
     bannerSelector: '[data-articles-list-banner]',
+  });
+}
+
+function initHomeArticlesFeed() {
+  initArticlesFeed({
+    gridSelector: '[data-home-articles-grid]',
+    templateSelector: '#home-article-card-template',
+    bannerSelector: '[data-home-articles-banner]',
+    emptySelector: '[data-home-articles-empty]',
+    limit: 3,
   });
 }
 
