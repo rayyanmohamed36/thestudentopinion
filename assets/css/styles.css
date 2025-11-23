@@ -313,6 +313,39 @@ nav .wrapper {
   margin-bottom: 0.75rem;
 }
 
+.home-articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.home-article {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.home-article h4 {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--white);
+}
+
+.home-article .meta,
+.home-article p,
+.home-article .article-abstract {
+  color: var(--white);
+}
+
+.home-article-author {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.home-article .article-abstract p {
+  color: var(--white);
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);

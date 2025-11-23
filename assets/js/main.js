@@ -106,9 +106,14 @@ function initArticlesFeed({
       const abstractEl = clone.querySelector('[data-issue-article-abstract]');
       const pdfEl = clone.querySelector('[data-issue-article-pdf]');
       const readEl = clone.querySelector('[data-issue-article-read]');
+      const authorEl = clone.querySelector('[data-home-article-author]');
 
       metaEl.textContent = formatMeta(article);
       titleEl.textContent = article.title || 'Untitled article';
+      if (authorEl) {
+        authorEl.textContent = article.author ? `By ${article.author}` : '';
+        authorEl.hidden = !article.author;
+      }
 
       const abstractHtml = paragraphsToHtml(article.abstract || '');
       if (abstractHtml) {
@@ -193,7 +198,7 @@ function initHomeArticlesFeed() {
     templateSelector: '#home-article-card-template',
     bannerSelector: '[data-home-articles-banner]',
     emptySelector: '[data-home-articles-empty]',
-    limit: 3,
+    limit: 1,
   });
 }
 
