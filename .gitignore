@@ -11,6 +11,7 @@ venv/
 env/
 ENV/
 .venv
-
+.DS_Store
+assets/.DS_Store
 # Vercel
 .vercel
